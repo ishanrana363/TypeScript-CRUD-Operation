@@ -55,4 +55,4 @@ export const userProfile = async (req:any, res:any) => {
             message: error.message
         })
     }
-};
+}; 
