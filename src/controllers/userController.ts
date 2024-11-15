@@ -38,3 +38,21 @@ export const loginUser = async (req:any, res:any) => {
         return res.status(500).json({ message: 'Server error during login' });
     }
 };
+
+export const userProfile = async (req:any, res:any) => {
+    try {
+        const id = req.headers.id;
+        let filter = {
+            _id: id,
+        }
+
+        let data = await User.findOne(filter);
+        res.status(200).json({ status:'success', data: data });
+
+    } catch (error:any) {
+        return res.status({
+            status: 'fail',
+            message: error.message
+        })
+    }
+};
