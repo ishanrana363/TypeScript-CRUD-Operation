@@ -47,3 +47,43 @@ export const updateCategory = async (req: any, res: any) => {
         res.status(500).json({ status: "fail", message: error.message });
     }
 };
+
+
+export const deleteCategory = async (req: any, res: any) => {
+    const id = req.params.id;
+    try {
+        let filter = {
+            _id : id
+        };
+        let data = await categoryModel.findByIdAndDelete(filter);
+        if (!data) {
+            return res.status(404).json({ status: "fail", message: "Category not found" });
+        }
+        res.status(200).json({
+            status: "success",
+            message: "Category deleted successfully",
+            data: data
+        });
+    } catch (error:any) {
+        return res.status(500).json({
+            status: "fail",
+            message: error.message
+        });
+    }
+};
+
+export const allCategory = async (req:any,res:any)=>{
+    try {
+        let data = await categoryModel.find();
+        return res.status(200).json({
+            status: "success",
+            message: "All categories",
+            data: data
+        })
+    } catch (error:any) {
+        return res.status(500).json({
+            status: "fail",
+            message: error.message
+        });
+    }
+};
