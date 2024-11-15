@@ -1,3 +1,4 @@
+import {Request,Response} from "express";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -6,8 +7,7 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import connectDB from "./database";
 import userRoutes from "./src/routes/api"
-dotenv.config();
-connectDB();
+
 const app = express();
 
 // Middleware
@@ -22,9 +22,18 @@ app.use(
     })
 );
 
+app.get("/", (req:Request, res:Response) => {
+    res.send("server run successfully");
+});
+
+dotenv.config();
+connectDB();
+
 // Routes
 
 app.use("/api/v1", userRoutes);
+
+
 
 
 
